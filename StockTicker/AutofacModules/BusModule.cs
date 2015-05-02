@@ -19,7 +19,8 @@ namespace StockTicker.AutofacModules
                 "Endpoint=sb://readify-ipo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SBiN+3OS+GR5t+t3hRZ1lj/vRFXLWyVI5xWdg0Rh+uI=";
 
             var handlerTypesProvider = new AssemblyScanningTypeProvider(Assembly.GetExecutingAssembly());
-            builder.RegisterType<ConsoleLogger>()
+            //builder.RegisterType<ConsoleLogger>()
+            builder.RegisterType<NullLogger>()
                    .As<ILogger>()
                    .SingleInstance();
             builder.RegisterNimbus(handlerTypesProvider);
