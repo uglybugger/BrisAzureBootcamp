@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Autofac;
 
 namespace StockTicker
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            var stockPrice = 0.10m;
+            MainAsync().Wait();
+        }
 
-            while (!Console.KeyAvailable)
+        private static async Task MainAsync()
+        {
+            using (var container = IoC.LetThereBeIoC())
             {
-                Thread.Sleep(TimeSpan.FromSeconds(10));
-                Console.WriteLine("Stock price for READIFY is {0}", stockPrice);
-                // publish "StockPriceChangedEvent"
-                stockPrice *= 1.01m;
+                //var ticker = new Ticker();
+                var ticker = container.Resolve<Ticker>();
+                await ticker.DoYourThing();
             }
         }
     }
